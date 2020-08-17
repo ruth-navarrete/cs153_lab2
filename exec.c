@@ -62,11 +62,11 @@ exec(char *path, char **argv)
 
   // Allocate two pages at the next page boundary.
   // Make the first inaccessible.  Use the second as the user stack.
-  sz = PGROUNDUP(sz);
-  if((sz = allocuvm(pgdir, sz, sz + 2*PGSIZE)) == 0)
+ // sz = PGROUNDUP(sz);
+  if((sz = allocuvm(pgdir, KERNBASE - 0x01, KERNBASE - 0x01)) == 0) // our first introduction to allocuvm; it allocates and maps two pages
     goto bad;
-  clearpteu(pgdir, (char*)(sz - 2*PGSIZE));
-  sp = sz;
+  //clearpteu(pgdir, (char*)(sz - 2*PGSIZE)); //we clear the PTE for the first page to create a buffer page between stack and code/data
+  sp = KERNBASE - 0x01; 
 
   // Push argument strings, prepare rest of stack in ustack.
   for(argc = 0; argv[argc]; argc++) {
