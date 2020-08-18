@@ -13,13 +13,16 @@
 // library system call function. The saved user %esp points
 // to a saved program counter, and then the first argument.
 
+// Lab 3: Several of these functions use sz to call the top of the stack.
+// Since that's no longer the case, the USERTOP takes it place.
+
 // Fetch the int at addr from the current process.
 int
 fetchint(uint addr, int *ip)
 {
   struct proc *curproc = myproc();
 
-  if(addr >= curproc->sz || addr+4 > curproc->sz)
+  if(addr >= USERTOP || addr+4 > USERTOP)
     return -1;
   *ip = *(int*)(addr);
   return 0;
@@ -31,13 +34,13 @@ fetchint(uint addr, int *ip)
 int
 fetchstr(uint addr, char **pp)
 {
-  char *s, *ep;
+  char *s;
   struct proc *curproc = myproc();
 
-  if(addr >= curproc->sz)
-    return -1;
+  if(addr >= USERTOP)
+   return -1;
   *pp = (char*)addr;
-  ep = (char*)curproc->sz;
+  ep = (char*)USERTOP;
   for(s = *pp; s < ep; s++){
     if(*s == 0)
       return s - *pp;
@@ -63,7 +66,7 @@ argptr(int n, char **pp, int size)
  
   if(argint(n, &i) < 0)
     return -1;
-  if(size < 0 || (uint)i >= curproc->sz || (uint)i+size > curproc->sz)
+  if(size < 0 || (uint)i >= USERTOP || (uint)i+size > USERTOP)
     return -1;
   *pp = (char*)i;
   return 0;
