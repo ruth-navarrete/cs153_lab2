@@ -2,7 +2,6 @@
 #include "user.h"
 
 // Prevent this function from being optimized, which might give it closed form
-
 #pragma GCC push_options
 #pragma GCC optimize ("O0")
 static int
@@ -30,4 +29,3 @@ main(int argc, char *argv[])
   printf(1, "Lab 3: Yielded a value of %d\n", m);
   exit();
 }
-

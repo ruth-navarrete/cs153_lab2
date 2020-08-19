@@ -336,7 +336,7 @@ copyuvm(pde_t *pgdir, uint sz)
       goto bad;
   }
 // Lab3: create a second loop to iterate new position of task. 
-  for(j = PGROUNDDOWN(USERTOP); j > USERTOP-myproc()->stackPages*PGSIZE ; j -= PGSIZE){
+  for(j = PGROUNDUP(USERTOP - myproc()->numPages * PGSIZE); j < USERTOP; i+= USERTOP){
 
     if((pte = walkpgdir(pgdir, (void *) j, 0)) == 0)
       panic("copyuvm: pte should exist");
