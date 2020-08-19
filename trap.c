@@ -93,8 +93,8 @@ trap(struct trapframe *tf)
       }
       myproc()->numPages++;
       cprintf("Page allocation complete\n");
+      break;
     }
-    break;
 
   //PAGEBREAK: 13
   default:
