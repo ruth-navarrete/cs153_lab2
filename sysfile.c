@@ -259,7 +259,7 @@ create(char *path, short type, short major, short minor)
   }
 
   if((ip = ialloc(dp->dev, type)) == 0)
-    panic("create: ialloc");
+   panic("create: ialloc");
 
   ilock(ip);
   ip->major = major;

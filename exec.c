@@ -12,7 +12,7 @@ exec(char *path, char **argv)
 {
   char *s, *last;
   int i, off;
-  uint argc, sz, sp, ustack[3+MAXARG+1];
+  uint argc, sz, sp, ustack[3+MAXARG+1];//, stackSize;
   struct elfhdr elf;
   struct inode *ip;
   struct proghdr ph;
@@ -62,13 +62,15 @@ exec(char *path, char **argv)
 
   // Allocate two pages at the next page boundary.
   // Make the first inaccessible.  Use the second as the user stack.
+  
   sz = PGROUNDUP(sz); 
-  if((sz = allocuvm(pgdir, USERTOP - PGSIZE, USERTOP) == 0) //Lab 3; Task 1
+  if((sz = allocuvm(pgdir, USERTOP - PGSIZE, USERTOP)) == 0) //Lab 3; Task 1
 	 goto bad;
-  //clearpteu(pgdir, (char*)(sz - 2*PGSIZE)); //Lab 3; Task 1: not needed 
+  
   sp = USERTOP; //Lab 3; Task 2
-
-  // Push argument strings, prepare rest of stack in ustack.
+  curproc->stackPages = 1; //Lab 3; Task 4
+   
+// Push argument strings, prepare rest of stack in ustack.
   for(argc = 0; argv[argc]; argc++) {
     if(argc >= MAXARG)
       goto bad;
@@ -110,6 +112,7 @@ exec(char *path, char **argv)
     iunlockput(ip);
     end_op();
   }
+
   return -1;
 }
 
