@@ -12,7 +12,7 @@ exec(char *path, char **argv)
 {
   char *s, *last;
   int i, off;
-  uint argc, sz, sp, ustack[3+MAXARG+1];
+  uint argc, sz, sp, ustack[3+MAXARG+1]; ///stackSize;
   struct elfhdr elf;
   struct inode *ip;
   struct proghdr ph;
@@ -64,12 +64,14 @@ exec(char *path, char **argv)
   // Make the first inaccessible.  Use the second as the user stack.
   
   sz = PGROUNDUP(sz); 
-  if((sz = allocuvm(pgdir, USERTOP - PGSIZE, USERTOP)) == 0) //Lab 3; Task 1
+  if((allocuvm(pgdir, USERTOP - PGSIZE, USERTOP)) == 0) //Lab 3; Task 1
 	 goto bad;
   
   sp = USERTOP; //Lab 3; Task 2
   curproc->numPages = 1; //Lab 3; Task 4
-   
+  cprintf("Num pages: %d, ",curproc->numPages);
+  cprintf("sp: %d, sz: %d ", sp, sz);
+  //cprintf("stackSize: %d \n", stackSize);
 // Push argument strings, prepare rest of stack in ustack.
   for(argc = 0; argv[argc]; argc++) {
     if(argc >= MAXARG)

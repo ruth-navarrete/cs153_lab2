@@ -6,7 +6,7 @@
 #include "mmu.h"
 #include "proc.h"
 #include "elf.h"
-
+#include <stdio.h>
 extern char data[];  // defined by kernel.ld
 pde_t *kpgdir;  // for use in scheduler()
 
@@ -336,8 +336,8 @@ copyuvm(pde_t *pgdir, uint sz)
       goto bad;
   }
 // Lab3: create a second loop to iterate new position of task. 
-  for(j = PGROUNDUP(USERTOP - myproc()->numPages * PGSIZE); j < USERTOP; i+= USERTOP){
-
+  for(j = PGROUNDUP(USERTOP - myproc()->numPages * PGSIZE) +1; j < USERTOP; i+= PGSIZE){
+    cprintf("copyvum pos: %d \n", j);
     if((pte = walkpgdir(pgdir, (void *) j, 0)) == 0)
       panic("copyuvm: pte should exist");
     if(!(*pte & PTE_P))
