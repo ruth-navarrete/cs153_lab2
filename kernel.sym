@@ -1,7 +1,7 @@
 80100000 .text
-80106e80 .rodata
-80107955 .stab
-80107956 .stabstr
+80106ea0 .rodata
+80107975 .stab
+80107976 .stabstr
 80108000 .data
 8010a520 .bss
 00000000 .debug_line
@@ -18,7 +18,7 @@
 8010a558 panicked
 801003e0 consputc
 80100570 printint
-80106ef0 digits.1860
+80106f10 digits.1860
 00000000 exec.c
 00000000 file.c
 00000000 fs.c
@@ -36,9 +36,9 @@
 00000000 kalloc.c
 00000000 kbd.c
 8010a5b4 shift.1700
-80107240 shiftcode
-80107140 togglecode
-80107120 charcode.1701
+80107260 shiftcode
+80107160 togglecode
+80107140 charcode.1701
 80108200 normalmap
 80108100 shiftmap
 80108000 ctlmap
@@ -58,12 +58,12 @@
 80103500 allocproc
 8010a000 first.1902
 8010a5b8 initproc
-80107500 states.1928
+80107520 states.1928
 00000000 sleeplock.c
 00000000 spinlock.c
 00000000 string.c
 00000000 syscall.c
-80107580 syscalls
+801075a0 syscalls
 00000000 sysfile.c
 801046e0 fdalloc
 80104720 create
@@ -132,7 +132,7 @@
 801052c0 sys_fork
 8010b5c0 bcache
 80106006 vector172
-80106e60 shm_open
+80106e80 shm_open
 80106342 vector241
 801040b0 getcallerpcs
 80104f10 sys_mkdir
@@ -186,7 +186,7 @@
 80100d80 fileinit
 80104090 initlock
 80105df6 vector128
-80106d70 copyout
+80106d90 copyout
 80105c4f vector81
 80103c40 sleep
 801155c0 shm_table
@@ -247,7 +247,7 @@
 801062a6 vector228
 80105af0 vector42
 80105d78 vector114
-80106d30 uva2ka
+80106d50 uva2ka
 8010602a vector175
 80105eaa vector143
 80100da0 filealloc
@@ -354,7 +354,7 @@
 801109c0 sb
 80104180 acquire
 8010628e vector226
-80106e00 shminit
+80106e20 shminit
 80101f60 nameiparent
 80105b2f vector49
 80105b02 vector44
@@ -363,7 +363,7 @@
 8010546d alltraps
 80106012 vector173
 80105d93 vector117
-80106e70 shm_close
+80106e90 shm_close
 80105c58 vector82
 8010625e vector222
 801059cc vector8
