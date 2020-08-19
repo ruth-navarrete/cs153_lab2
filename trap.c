@@ -83,18 +83,18 @@ trap(struct trapframe *tf)
     // if yes, grow stack
     // - allocvum with correct parameters to allocate one page at the right place
     // - increment stack size counter 
-    if (rcr2() < (USERTOP - (myproc()->numPages * PGSIZE))) {
+    if ((rcr2() >= (USERTOP - (myproc()->numPages * PGSIZE)))) {
       cprintf("New page allocation start\n");
       // first addr slot under kernbase
       // last addr page of what we are mapping
-      if (allocuvm(myproc()->pgdir, USERTOP, PGROUNDUP(USERTOP)) == 0) {
+      if (allocuvm(myproc()->pgdir, USERTOP - ((myproc()->numPages + 1) * PGSIZE), USERTOP - ((myproc()->numPages) * PGSIZE)) == 0) {
         cprintf("Failed to allocate page\n");
         break;
       }
       myproc()->numPages++;
       cprintf("Page allocation complete\n");
-      break;
     }
+    break;
 
   //PAGEBREAK: 13
   default:
